@@ -1,10 +1,15 @@
+
 const path = require('path');
+
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const dev = process.env.NODE_ENV !== 'production'
+
 ENTRY_PATH = path.resolve(__dirname, "src/index")
 DIST_PATH = path.resolve(__dirname, "dist")
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: ENTRY_PATH,
+    devtool: dev ? 'eval-cheap-module-source-map' : 'source-map',
     module: {
         rules: [
             {
