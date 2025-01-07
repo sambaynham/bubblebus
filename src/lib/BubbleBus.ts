@@ -15,14 +15,25 @@ export default class BubbleBus {
             element: element,
             listensFor: listensFor
         }
+
+
         this.listeners.push(definition);
 
         listensFor.forEach((eventName) => {
-            this.body.addEventListener(eventName, this.handleEvent);
+            this.body.addEventListener(eventName, (e) => {
+                this.propagateEvent(e);
+            });
         });
     }
 
-    handleEvent(event: Event): void {
+    propagateEvent(event: Event): void {
+        let listenersToCall = this.listeners.filter((definition: ListenerDefinition) => {
+            return definition.listensFor.includes(event.type);
+        });
+
+        listenersToCall.forEach((listenerDefinition: ListenerDefinition)=> {
+            listenerDefinition.element.dispatchEvent(event);
+        });
 
     }
 }

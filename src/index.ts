@@ -21,8 +21,5 @@ document.addEventListener('DOMContentLoaded', (e) => {
       button.dispatchEvent(event);
    });
 
-   /*body.addEventListener('customEvent', (e) => {
-      console.log(e);
-   });*/
    bubbleBus.addListener(responder, ['customEvent']);
 });
