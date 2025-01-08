@@ -1,38 +1,38 @@
-type ListenerDefinition = {
-    element: HTMLElement;
-    listensFor: string[];
-}
+import {ListenerDefinition} from "../types/ListenerDefinition";
 
 export default class BubbleBus {
     private listeners: ListenerDefinition[];
 
-    constructor(private body: HTMLBodyElement) {
+    constructor(private wrapper: HTMLBodyElement) {
         this.listeners = [];
     }
 
     addListener(element: HTMLElement, listensFor: string[]): void {
-        let definition: ListenerDefinition = {
+
+        this.listeners.push({
             element: element,
             listensFor: listensFor
-        }
-
-
-        this.listeners.push(definition);
+        });
 
         listensFor.forEach((eventName) => {
-            this.body.addEventListener(eventName, (e) => {
+            this.wrapper.addEventListener(eventName, (e: CustomEvent) => {
                 this.propagateEvent(e);
             });
         });
     }
 
-    propagateEvent(event: Event): void {
+    propagateEvent(event: CustomEvent): void {
+
         let listenersToCall = this.listeners.filter((definition: ListenerDefinition) => {
             return definition.listensFor.includes(event.type);
         });
 
         listenersToCall.forEach((listenerDefinition: ListenerDefinition)=> {
-            listenerDefinition.element.dispatchEvent(event);
+            let clonedEvent = new CustomEvent(event.type, {
+                detail: event.detail,
+                bubbles: false
+            });
+            listenerDefinition.element.dispatchEvent(clonedEvent);
         });
 
     }
