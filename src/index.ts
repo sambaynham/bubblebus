@@ -2,9 +2,9 @@ import '../resources/app.scss';
 import BubbleBus from "./lib/classes/BubbleBus";
 
 document.addEventListener('DOMContentLoaded', (e) => {
+
    const body = document.querySelector('body');
    const bubbleBus = new BubbleBus(body);
-
    const responder = document.getElementById('responder');
    const button: HTMLElement = document.getElementById('button');
 
@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
    responder.addEventListener('customEvent', function (event: CustomEvent) {
 
+       console.log(event);
         this.innerHTML = 'I got the message';
    });
    bubbleBus.addListener(responder, ['customEvent']);

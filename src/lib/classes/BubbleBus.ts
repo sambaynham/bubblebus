@@ -1,6 +1,7 @@
 import {ListenerDefinition} from "../types/ListenerDefinition";
 
 export default class BubbleBus {
+
     private listeners: ListenerDefinition[];
 
     constructor(private wrapper: HTMLBodyElement) {
@@ -8,15 +9,16 @@ export default class BubbleBus {
     }
 
     addListener(element: HTMLElement, listensFor: string[]): void {
-
         this.listeners.push({
             element: element,
             listensFor: listensFor
         });
 
         listensFor.forEach((eventName) => {
-            this.wrapper.addEventListener(eventName, (e: CustomEvent) => {
-                this.propagateEvent(e);
+            this.wrapper.addEventListener(eventName, (event: CustomEvent) => {
+                if (event.detail.hasPropogated !== true) {
+                    this.propagateEvent(event);
+                }
             });
         });
     }
@@ -28,12 +30,14 @@ export default class BubbleBus {
         });
 
         listenersToCall.forEach((listenerDefinition: ListenerDefinition)=> {
+            let detail = event.detail;
+
+            detail.hasPropogated = true;
             let clonedEvent = new CustomEvent(event.type, {
-                detail: event.detail,
-                bubbles: false
+                detail: detail,
+                bubbles: event.bubbles
             });
             listenerDefinition.element.dispatchEvent(clonedEvent);
         });
-
     }
 }
