@@ -1,5 +1,7 @@
 import {ListenerDefinition} from "../types/ListenerDefinition";
 import {EventDetail} from "../types/EventDetail";
+import {types} from "sass";
+import List = types.List;
 
 export default class BubbleBus {
 
@@ -22,6 +24,10 @@ export default class BubbleBus {
                 }
             });
         });
+    }
+
+    getListeners(): ListenerDefinition[] {
+        return this.listeners;
     }
 
     private propagateEvent(event: CustomEvent): void {
