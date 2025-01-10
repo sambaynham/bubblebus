@@ -36,7 +36,6 @@ export default class BubbleBus {
                     originalDetail: detail
                 };
             }
-            detail = detail as Object;
             detail.hasPropagated = true;
 
             listenerDefinition.element.dispatchEvent(

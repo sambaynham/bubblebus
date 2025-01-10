@@ -12,7 +12,8 @@ export default [
     ignores: [
         ".node_modules/*",
         "public/dist/*.js",
-        "webpack.config.js"
+        "webpack.config.js",
+        "jest.config.js"
     ]
   },
   {languageOptions: { globals: globals.browser }},
