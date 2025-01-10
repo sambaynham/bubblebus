@@ -13,7 +13,7 @@ export default [
         ".node_modules/*",
         "public/dist/*.js",
         "webpack.config.js",
-        "jest.config.js"
+        "jest.config.ts"
     ]
   },
   {languageOptions: { globals: globals.browser }},

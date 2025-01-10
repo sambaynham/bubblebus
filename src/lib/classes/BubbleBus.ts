@@ -1,10 +1,11 @@
 import {ListenerDefinition} from "../types/ListenerDefinition";
+import {EventDetail} from "../types/EventDetail";
 
 export default class BubbleBus {
 
     private listeners: ListenerDefinition[];
 
-    constructor(private wrapper: HTMLBodyElement) {
+    constructor(private wrapper: HTMLElement) {
         this.listeners = [];
     }
 
@@ -30,12 +31,13 @@ export default class BubbleBus {
         });
 
         listenersToCall.forEach((listenerDefinition: ListenerDefinition)=> {
-            let detail: unknown = event.detail;
-            if (typeof detail !== 'object') {
-                detail = {
-                    originalDetail: detail
-                };
-            }
+
+
+            let detail: EventDetail = {
+                body: event.detail,
+                hasPropagated: false
+            };
+
             detail.hasPropagated = true;
 
             listenerDefinition.element.dispatchEvent(
