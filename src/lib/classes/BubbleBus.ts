@@ -16,28 +16,38 @@ export default class BubbleBus {
 
         listensFor.forEach((eventName) => {
             this.wrapper.addEventListener(eventName, (event: CustomEvent) => {
-                if (event.detail.hasPropogated !== true) {
+                if (event.detail.hasPropagated !== true) {
                     this.propagateEvent(event);
                 }
             });
         });
     }
 
-    propagateEvent(event: CustomEvent): void {
+    private propagateEvent(event: CustomEvent): void {
 
-        let listenersToCall = this.listeners.filter((definition: ListenerDefinition) => {
+        const listenersToCall: ListenerDefinition[] = this.listeners.filter((definition: ListenerDefinition) => {
             return definition.listensFor.includes(event.type);
         });
 
         listenersToCall.forEach((listenerDefinition: ListenerDefinition)=> {
             let detail = event.detail;
+            if (typeof detail !== 'object') {
+                detail = {
+                    originalDetail: detail
+                };
+            }
+            detail.hasPropagated = true;
 
-            detail.hasPropogated = true;
-            let clonedEvent = new CustomEvent(event.type, {
-                detail: detail,
-                bubbles: event.bubbles
-            });
-            listenerDefinition.element.dispatchEvent(clonedEvent);
+            listenerDefinition.element.dispatchEvent(
+                new CustomEvent(
+                    event.type, {
+                        detail: detail,
+                        bubbles: event.bubbles,
+                        composed: event.composed,
+                        cancelable: event.cancelable
+                    }
+                )
+            );
         });
     }
 }

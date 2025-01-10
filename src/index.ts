@@ -1,19 +1,17 @@
 import '../resources/app.scss';
 import BubbleBus from "./lib/classes/BubbleBus";
 
-document.addEventListener('DOMContentLoaded', (e) => {
-
-   const body = document.querySelector('body');
-   const bubbleBus = new BubbleBus(body);
-   const responder = document.getElementById('responder');
+document.addEventListener('DOMContentLoaded', () => {
+   const bubbleBus = new BubbleBus(document.querySelector('body'));
+   const responder: HTMLElement = document.getElementById('responder');
    const button: HTMLElement = document.getElementById('button');
 
-   button.addEventListener('click', (e) => {
+   button.addEventListener('click', () => {
       const event = new CustomEvent(
           'customEvent',
           {
              detail: {
-                'text': 'yo',
+                 'message': 'Hi-diddly-ho, Neighbourino'
              },
              bubbles: true,
           }
@@ -21,9 +19,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
       button.dispatchEvent(event);
    });
 
-   responder.addEventListener('customEvent', function (event: CustomEvent) {
-
-       console.log(event);
+   responder.addEventListener('customEvent', function () {
         this.innerHTML = 'I got the message';
    });
    bubbleBus.addListener(responder, ['customEvent']);
