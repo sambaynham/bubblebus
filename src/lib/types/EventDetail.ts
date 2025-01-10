@@ -1,4 +1,4 @@
 export type EventDetail = {
-    body: unknown,
+    detail: unknown,
     hasPropagated: boolean;
 }

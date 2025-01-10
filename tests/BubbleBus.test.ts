@@ -1,8 +1,8 @@
 import BubbleBus from "../src/lib/classes/BubbleBus";
 
 
-describe('truthy', (): void => {
-    test('setListeners', () : void => {
+describe('basic setup', (): void => {
+    test('addListeners', () : void => {
 
         let listener: HTMLButtonElement = document.createElement('button');
         let wrapper: HTMLElement = document.createElement('div')

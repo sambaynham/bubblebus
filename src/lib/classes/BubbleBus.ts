@@ -40,11 +40,9 @@ export default class BubbleBus {
 
 
             let detail: EventDetail = {
-                body: event.detail,
-                hasPropagated: false
+                detail: event.detail,
+                hasPropagated: true
             };
-
-            detail.hasPropagated = true;
 
             listenerDefinition.element.dispatchEvent(
                 new CustomEvent(
