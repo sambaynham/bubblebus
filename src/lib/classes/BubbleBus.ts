@@ -30,7 +30,7 @@ export default class BubbleBus {
         });
 
         listenersToCall.forEach((listenerDefinition: ListenerDefinition)=> {
-            let detail = event.detail;
+            let detail: unknown = event.detail;
             if (typeof detail !== 'object') {
                 detail = {
                     originalDetail: detail
