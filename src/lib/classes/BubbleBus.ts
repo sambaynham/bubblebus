@@ -1,10 +1,4 @@
 import {ListenerDefinition} from "../types/ListenerDefinition";
-import {EventDetail} from "../types/EventDetail";
-
-interface LooseObject {
-    [key: string]: any
-}
-
 
 export default class BubbleBus {
 
