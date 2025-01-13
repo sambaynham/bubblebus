@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
-    "outDir": "./public/dist/",
-    "noImplicitAny": true,
-    "module": "es6",
-    "target": "es5",
-    "jsx": "react",
-    "allowJs": true,
-    "moduleResolution": "node"
+    "target": "es6" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    "module": "es6", /* Specify what module code is generated. */
+    "moduleResolution": "Node"
   }
 }

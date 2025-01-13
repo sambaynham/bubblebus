@@ -3,13 +3,25 @@
     <head>
         <title>BubbleBus</title>
         <link rel="stylesheet" href="dist/main.css">
-        <script src="dist/bundle.js"></script>
+        <script src="dist/main.js"></script>
     </head>
     <body>
         <h1>BubbleBus</h1>
-        <div id="responder">
-            No Response
+        <div id="wrapper">
+            <my-sender-component>
+                <h2>Sender Component</h2>
+                <label for="message">Message</label>
+                <input id="message" class="message" placeholder="Enter message">
+                <button class="button">Send Message</button>
+            </my-sender-component>
+
+            <recipient-component>
+                <h2>Recipient Component</h2>
+                <span class="message"><em>No message received</em></span>
+            </recipient-component>
         </div>
-        <button id="button">Button</button>
+
     </body>
+
+
 </html>

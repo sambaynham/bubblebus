@@ -1,27 +1,17 @@
 import '../resources/app.scss';
 import BubbleBus from "./lib/classes/BubbleBus";
+import {SenderComponent} from "./components/SenderComponent";
 
 document.addEventListener('DOMContentLoaded', () => {
-   const bubbleBus = new BubbleBus(document.querySelector('body'));
-   const responder: HTMLElement = document.getElementById('responder');
-   const button: HTMLElement = document.getElementById('button');
+    let wrapper = document.getElementById('wrapper');
 
-   button.addEventListener('click', () => {
-      const event = new CustomEvent(
-          'customEvent',
-          {
-             detail: {
-                 'message': 'Hi-diddly-ho, Neighbourino'
-             },
-             bubbles: true,
-          }
-      );
-      button.dispatchEvent(event);
-   });
 
-   responder.addEventListener('customEvent', function (e: CustomEvent) {
-       console.log(e.detail);
-        this.innerHTML = 'I got the message';
-   });
-   bubbleBus.addListener(responder, ['customEvent']);
+    const bubbleBus = new BubbleBus(wrapper);
+    customElements.define('my-sender-component', SenderComponent, { extends: 'div' });
+
+
+    //bubbleBus.addListener(responder, ['customEvent']);
 });
+
+
+
