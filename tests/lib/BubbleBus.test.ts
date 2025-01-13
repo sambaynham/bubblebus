@@ -1,4 +1,4 @@
-import BubbleBus from "../src/lib/classes/BubbleBus";
+import BubbleBus from "../../src/lib/classes/BubbleBus";
 import {expect, test} from '@jest/globals';
 
 describe('basic setup', (): void => {
