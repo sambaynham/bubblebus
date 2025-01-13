@@ -19,7 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
       button.dispatchEvent(event);
    });
 
-   responder.addEventListener('customEvent', function () {
+   responder.addEventListener('customEvent', function (e: CustomEvent) {
+       console.log(e.detail);
         this.innerHTML = 'I got the message';
    });
    bubbleBus.addListener(responder, ['customEvent']);

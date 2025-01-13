@@ -1,7 +1,10 @@
 import {ListenerDefinition} from "../types/ListenerDefinition";
 import {EventDetail} from "../types/EventDetail";
-import {types} from "sass";
-import List = types.List;
+
+interface LooseObject {
+    [key: string]: any
+}
+
 
 export default class BubbleBus {
 
@@ -38,16 +41,11 @@ export default class BubbleBus {
 
         listenersToCall.forEach((listenerDefinition: ListenerDefinition)=> {
 
-
-            let detail: EventDetail = {
-                detail: event.detail,
-                hasPropagated: true
-            };
-
+            event.detail.hasPropagated = true;
             listenerDefinition.element.dispatchEvent(
                 new CustomEvent(
                     event.type, {
-                        detail: detail,
+                        detail: event.detail,
                         bubbles: event.bubbles,
                         composed: event.composed,
                         cancelable: event.cancelable
